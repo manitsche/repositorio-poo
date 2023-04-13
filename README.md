@@ -5,6 +5,6 @@
 
 ## Links para as atividades
 
-[AtvTeste](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atvTeste)
+[atvTeste](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atvTeste)
 
-[Atv01](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv01)
+[atv01](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv01)
