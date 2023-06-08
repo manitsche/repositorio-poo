@@ -3,7 +3,9 @@
 ### Aluno: Marco Antonio Nitsche
 ### Turma: 2° TADS
 
-## Links para as atividades
+------------------------------------------------
+
+## Links para as atividades:
 
 [AtvTeste](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atvTeste)
 
@@ -20,3 +22,7 @@
 [Atv06](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv06)
 
 [Atv07](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv07)
+
+[Atv08](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv08)
+
+[Atv09](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv09)
