@@ -3,7 +3,7 @@
 ### Aluno: Marco Antonio Nitsche
 ### Turma: 2° TADS
 
-------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Links para as atividades:
 
@@ -30,3 +30,5 @@
 [Atv10](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv10)
 
 [Atv11](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv11)
+
+[Atv12](https://github.com/manitsche/repositorio_poo/tree/master/Atividades/atv12)
