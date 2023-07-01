@@ -1,3 +1,5 @@
+// Nome: Marco Antonio Nitsche - Turma: 2° TADS
+
 public class Emprestimo {
     private double valorTotal;
     private double taxaJuros;
