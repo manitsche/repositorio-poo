@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Atividade {
@@ -7,18 +8,19 @@ public class Atividade {
     private String descricao;
     private String faixaEtaria;
     private String niveisHabilidade;
-    private String turmas;
+    private List<String> turmas;
     private String horario;
     private String instrutores;
     private List<Atividade> listaAtividades;
 
-    public Atividade(String nome, String descricao, String faixaEtaria, String niveisHabilidade, String turmas, String horario, String instrutores) {
+    public Atividade(String nome, String descricao, String faixaEtaria, String niveisHabilidade, String turma, String horario, String instrutores) {
         this.idatividade = ++countAtividade;
         this.nome = nome;
         this.descricao = descricao;
         this.faixaEtaria = faixaEtaria;
         this.niveisHabilidade = niveisHabilidade;
-        this.turmas = turmas;
+        this.turmas = new ArrayList<>();
+        this.turmas.add(turma);
         this.horario = horario;
         this.instrutores = instrutores;
     }
@@ -59,12 +61,8 @@ public class Atividade {
         this.niveisHabilidade = niveisHabilidade;
     }
 
-    public String getTurmas() {
+    public List<String> getTurmas() {
         return turmas;
-    }
-
-    public void setTurmas(String turmas) {
-        this.turmas = turmas;
     }
 
     public String getHorario() {
@@ -81,6 +79,24 @@ public class Atividade {
 
     public void setInstrutores(String instrutores) {
         this.instrutores = instrutores;
+    }
+
+    public void cadastrarTurma(String turma) {
+        boolean turmaJaCadastrada = false;
+
+        for (String t : turmas) {
+            if (t.equals(turma)) {
+                turmaJaCadastrada = true;
+                break;
+            }
+        }
+
+        if (!turmaJaCadastrada) {
+            this.turmas.add(turma);
+            System.out.println("Turma adicionada com sucesso a atividade.");
+        } else {
+            System.out.println("A turma " + turma + " ja foi cadastrada para esta atividade.");
+        }
     }
 
     public static void visualizarAtividadesCadastradas(List<Atividade> listaAtividades) {

@@ -19,7 +19,7 @@
 | 7 | Alta | Como funcionário, gostaria de ter a capacidade de cadastrar novas atividades no sistema do clube recreativo, fornecendo informações como nome da atividade, descrição, faixa etária indicada, níveis de habilidade, turmas e horários disponíveis incluindo dias da semana e horários de início e término das aulas. | 8 | ✅ |
 | 8 | Média | Como funcionário, gostaria de ter a capacidade de visualizar todas as atividades cadastradas no sistema, permitindo uma visão geral das opções disponíveis para os associados. | 3 | ✅ |
 | 9 | Baixa | Como associado, gostaria de poder visualizar as atividades esportivas oferecidas pelo clube, incluindo horários, descrições, instrutores e níveis de habilidade. | 3 | ✅ |
-| 10 | Baixa | Como gerente, gostaria de poder cadastrar turmas para as atividades oferecidas pelo clube recreativo. | 5 | TO DO |
+| 10 | Baixa | Como gerente, gostaria de poder cadastrar turmas para as atividades oferecidas pelo clube recreativo. | 5 | ✅ |
 | 11 | Alta | Como funcionário, gostaria de poder cadastrar os associados nas atividades oferecidas pelo clube recreativo. | 3 | TO DO |
 | 12 | Baixa | Como associado, gostaria de poder visualizar o número de faltas nas atividades que estou matriculado. | 3 | TO DO |
 | 13 | Média | Como funcionário da lanchonete, gostaria de ter acesso ao sistema apenas para registrar o consumo dos associados, sem acesso a informações pessoais adicionais. | 3 | TO DO |

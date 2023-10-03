@@ -78,7 +78,6 @@ public class Gerente extends Pessoa {
         for (Funcionario funcionario : listaFuncionarios) {
             System.out.println("ID do funcionário: " + funcionario.getIdfuncionario());
             System.out.println("Nome: " + funcionario.getNome());
-
             System.out.println("Cargo: " + funcionario.getCargo());
             System.out.println("--------------------------");
         }
@@ -115,13 +114,45 @@ public class Gerente extends Pessoa {
         }
     }
 
-    public void menuGerente(List<Associado> listaAssociados, List<Funcionario> listaFuncionarios, Scanner scanner) {
+    public void cadastrarTurmaEmAtividade(List<Atividade> listaAtividades, Scanner scanner) {
+        System.out.println("##### MODULO DE CADASTRO DE TURMAS A ATIVIDADES #####");
+        
+        for (Atividade atividade : listaAtividades) {
+            System.out.println("ID da atividade: " + atividade.getIdatividade());
+            System.out.println("Nome: " + atividade.getNome());
+            System.out.println("Turmas: " + atividade.getTurmas());
+            System.out.println("--------------------------");
+        }
+
+        System.out.print("Informe o ID da atividade que deseja adicionar uma turma: ");
+        int idAtividade = scanner.nextInt();
+        scanner.nextLine(); 
+    
+        Atividade atividadeSelecionada = null;
+        for (Atividade atividade : listaAtividades) {
+            if (atividade.getIdatividade() == idAtividade) {
+                atividadeSelecionada = atividade;
+                break;
+            }
+        }
+    
+        if (atividadeSelecionada != null) {
+            System.out.print("Informe a nova turma: ");
+            String novaTurma = scanner.nextLine();
+            atividadeSelecionada.cadastrarTurma(novaTurma); 
+        } else {
+            System.out.println("Atividade não encontrada.");
+        }
+    }    
+    
+    public void menuGerente(List<Associado> listaAssociados, List<Funcionario> listaFuncionarios, List<Atividade> listaAtividades, Scanner scanner) {
         while (true) {
             System.out.println("\n##### MENU INICIAL - GERENTE #####");
             System.out.println("1 - Cadastrar novo funcionario");
             System.out.println("2 - Definir permissoes de acesso a um funcionario");
             System.out.println("3 - Visualizar resumos de funcionarios");
-            System.out.println("4 - Voltar ao menu anterior");
+            System.out.println("4 - Cadastrar nova turma em atividade");
+            System.out.println("5 - Voltar ao menu anterior");
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
     
@@ -169,6 +200,8 @@ public class Gerente extends Pessoa {
                     visualizarResumosFuncionarios(listaFuncionarios);
                     break;
                 case 4:
+                    cadastrarTurmaEmAtividade(listaAtividades, scanner);
+                case 5:
                     return;
                 default:
                     System.out.println("Opcao invalida. Escolha novamente.");

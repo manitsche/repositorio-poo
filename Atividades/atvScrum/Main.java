@@ -21,9 +21,9 @@ public class Main {
         Gerente gerente1 = new Gerente("Gerente 1", "Rua C, 3", "(45) 99999-3333", "gerente1@clube.com", "g1", "g1", "R$ 2.400,00");
         listaGerentes.add(gerente1);
 
-        Atividade atividade1 = new Atividade("Natacao", "Natacao", "3 a 65 anos", "Todos", "1 | 2 | 3", "07 as 08, | 14 as 15 | 18 as 19", "Professora Flavia");
+        Atividade atividade1 = new Atividade("Natacao", "Natacao para todos", "3 a 65 anos", "Todos", "Turma 1", "07 as 08, | 14 as 15 | 18 as 19", "Professora Flavia");
         listaAtividades.add(0, atividade1);
-
+        
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -93,7 +93,7 @@ public class Main {
                     }
 
                     if (gerenteAutenticado != null) {
-                        gerenteAutenticado.menuGerente(listaAssociados, listaFuncionarios, scanner);
+                        gerenteAutenticado.menuGerente(listaAssociados, listaFuncionarios, listaAtividades, scanner);
                     } else {
                         System.out.println("Login ou senha do gerente incorretos. Acesso negado.");
                     }
