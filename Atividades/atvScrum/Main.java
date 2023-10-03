@@ -21,6 +21,9 @@ public class Main {
         Gerente gerente1 = new Gerente("Gerente 1", "Rua C, 3", "(45) 99999-3333", "gerente1@clube.com", "g1", "g1", "R$ 2.400,00");
         listaGerentes.add(gerente1);
 
+        Atividade atividade1 = new Atividade("Natacao", "Natacao", "3 a 65 anos", "Todos", "1 | 2 | 3", "07 as 08, | 14 as 15 | 18 as 19", "Professora Flavia");
+        listaAtividades.add(0, atividade1);
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -34,24 +37,24 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    // System.out.print("Digite seu login como Associado: ");
-                    // String loginAssociado = scanner.next();
-                    // System.out.print("Digite sua senha como Associado: ");
-                    // String senhaAssociado = scanner.next();
-                    // Associado associadoAutenticado = null;
+                    System.out.print("Digite seu login como Associado: ");
+                    String loginAssociado = scanner.next();
+                    System.out.print("Digite sua senha como Associado: ");
+                    String senhaAssociado = scanner.next();
+                    Associado associadoAutenticado = null;
 
-                    // for (Associado associado : listaAssociados) {
-                    //     if (associado.getLogin().equals(loginAssociado)&& associado.getSenha().equals(senhaAssociado)) {
-                    //         associadoAutenticado = associado;
-                    //         break;
-                    //     }
-                    // }
+                    for (Associado associado : listaAssociados) {
+                        if (associado.getLogin().equals(loginAssociado)&& associado.getSenha().equals(senhaAssociado)) {
+                            associadoAutenticado = associado;
+                            break;
+                        }
+                    }
 
-                    // if (associadoAutenticado != null) {
-                    //     // associadoAutenticado.menuAssociado();
-                    // } else {
-                    //     System.out.println("Login ou senha de Associado incorretos. Acesso negado.");
-                    // }
+                    if (associadoAutenticado != null) {
+                        associadoAutenticado.menuAssociado(listaAtividades, scanner);
+                    } else {
+                        System.out.println("Login ou senha de Associado incorretos. Acesso negado.");
+                    }
                     break;
                 case 2:
                     System.out.print("Digite o login do funcionario: ");
@@ -69,7 +72,7 @@ public class Main {
                     }
 
                     if (funcionarioAutenticado != null) {
-                        funcionarioAutenticado.menuFuncionario(listaAssociados, scanner);
+                        funcionarioAutenticado.menuFuncionario(listaAssociados, listaAtividades, scanner);
                     } else {
                         System.out.println("Login ou senha do funcionario incorretos. Acesso negado.");
                     }

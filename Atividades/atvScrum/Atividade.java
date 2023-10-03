@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Atividade {
     private static int countAtividade = 0;
     private int idatividade;
@@ -8,6 +10,7 @@ public class Atividade {
     private String turmas;
     private String horario;
     private String instrutores;
+    private List<Atividade> listaAtividades;
 
     public Atividade(String nome, String descricao, String faixaEtaria, String niveisHabilidade, String turmas, String horario, String instrutores) {
         this.idatividade = ++countAtividade;
@@ -78,5 +81,19 @@ public class Atividade {
 
     public void setInstrutores(String instrutores) {
         this.instrutores = instrutores;
+    }
+
+    public static void visualizarAtividadesCadastradas(List<Atividade> listaAtividades) {
+        System.out.println("\n##### MODULO DE LISTAGEM DE ATIVIDADES #####");
+        for (Atividade atividade : listaAtividades) {
+            System.out.println("ID da atividade: " + atividade.getIdatividade());
+            System.out.println("Nome: " + atividade.getNome());
+            System.out.println("Descricao: " + atividade.getDescricao());
+            System.out.println("Faixa etaria indicada: " + atividade.getFaixaEtaria());
+            System.out.println("Niveis de habilidade: " + atividade.getNiveisHabilidade());
+            System.out.println("Turmas: " + atividade.getTurmas());
+            System.out.println("Horarios: " + atividade.getHorario());
+            System.out.println("--------------------------");
+        }
     }
 }   

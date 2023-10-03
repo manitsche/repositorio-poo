@@ -282,22 +282,7 @@ public class Funcionario extends Pessoa {
         }
     }
     
-    public void visualizarAtividadesCadastradas(List<Atividade> listaAtividades) {
-        System.out.println("\n##### MODULO DE LISTAGEM DE ATIVIDADES #####");
-        for (Atividade atividade : listaAtividades) {
-            System.out.println("ID da atividade: " + atividade.getIdatividade());
-            System.out.println("Nome: " + atividade.getNome());
-            System.out.println("Descricao: " + atividade.getDescricao());
-            System.out.println("Faixa etaria indicada: " + atividade.getFaixaEtaria());
-            System.out.println("Niveis de habilidade: " + atividade.getNiveisHabilidade());
-            System.out.println("Turmas: " + atividade.getTurmas());
-            System.out.println("Horarios: " + atividade.getHorario());
-            System.out.println("--------------------------");
-        }
-    }
-    
-
-    public void menuFuncionario(List<Associado> listaAssociados, Scanner scanner) {
+    public void menuFuncionario(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
         boolean sair = false;
     
         while (!sair) {
@@ -310,7 +295,6 @@ public class Funcionario extends Pessoa {
             System.out.println("6 - Visualizar atividades cadastradas");
             System.out.println("7 - Voltar ao menu anterior");
             System.out.print("Escolha uma opcao: ");
-            
             int opcao = scanner.nextInt();
             scanner.nextLine();
             
@@ -344,7 +328,7 @@ public class Funcionario extends Pessoa {
                     break;
                 case 6:
                     if (temPermissoesCompletas()) {
-                        visualizarAtividadesCadastradas(listaAtividades);
+                        Atividade.visualizarAtividadesCadastradas(listaAtividades);
                     } else {
                         System.out.println("Acesso nao autorizado para visualizar atividades cadastradas");
                     }
