@@ -143,7 +143,7 @@ public class Gerente extends Pessoa {
         } else {
             System.out.println("Atividade não encontrada.");
         }
-    }    
+    }
     
     public void menuGerente(List<Associado> listaAssociados, List<Funcionario> listaFuncionarios, List<Atividade> listaAtividades, Scanner scanner) {
         while (true) {
@@ -201,6 +201,7 @@ public class Gerente extends Pessoa {
                     break;
                 case 4:
                     cadastrarTurmaEmAtividade(listaAtividades, scanner);
+                    break;
                 case 5:
                     return;
                 default:

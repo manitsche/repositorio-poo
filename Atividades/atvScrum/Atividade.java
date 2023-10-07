@@ -11,7 +11,8 @@ public class Atividade {
     private List<String> turmas;
     private String horario;
     private String instrutores;
-    private List<Atividade> listaAtividades;
+    private List<Associado> associados; // Lista de associados cadastrados na atividade
+    List<Associado> associadosNaAtividade = new ArrayList<>();
 
     public Atividade(String nome, String descricao, String faixaEtaria, String niveisHabilidade, String turma, String horario, String instrutores) {
         this.idatividade = ++countAtividade;
@@ -23,6 +24,7 @@ public class Atividade {
         this.turmas.add(turma);
         this.horario = horario;
         this.instrutores = instrutores;
+        this.associados = new ArrayList<>(); // Inicializa a lista de associados
     }
 
     public int getIdatividade() {
@@ -81,25 +83,31 @@ public class Atividade {
         this.instrutores = instrutores;
     }
 
-    public void cadastrarTurma(String turma) {
-        boolean turmaJaCadastrada = false;
-
-        for (String t : turmas) {
-            if (t.equals(turma)) {
-                turmaJaCadastrada = true;
-                break;
-            }
-        }
-
-        if (!turmaJaCadastrada) {
-            this.turmas.add(turma);
-            System.out.println("Turma adicionada com sucesso a atividade.");
-        } else {
-            System.out.println("A turma " + turma + " ja foi cadastrada para esta atividade.");
+    public void cadastrarAssociado(Associado associado) {
+        if (!associados.contains(associado)) {
+            associados.add(associado);
+        //     System.out.println("Associado cadastrado na atividade.");
+        // } else {
+        //     System.out.println("O associado ja esta cadastrado nesta atividade.");
         }
     }
 
-    public static void visualizarAtividadesCadastradas(List<Atividade> listaAtividades) {
+    public void listarAssociados() {
+        System.out.println("\nAssociados cadastrados nesta atividade");
+        for (Associado associado : associados) {
+            System.out.println("ID do associado:");
+
+            System.out.println("Nome: " + associado.getNome());
+        }
+        System.out.println("-------------------------------");
+    }
+
+    public void cadastrarTurma(String novaTurma) {
+        this.turmas.add(novaTurma);
+        System.out.println("Turma cadastrada com sucesso!");
+    }
+
+    public static void visualizarAtividadesCadastradas(List<Atividade> listaAtividades, boolean chamadoPorFuncionario) {
         System.out.println("\n##### MODULO DE LISTAGEM DE ATIVIDADES #####");
         for (Atividade atividade : listaAtividades) {
             System.out.println("ID da atividade: " + atividade.getIdatividade());
@@ -109,7 +117,11 @@ public class Atividade {
             System.out.println("Niveis de habilidade: " + atividade.getNiveisHabilidade());
             System.out.println("Turmas: " + atividade.getTurmas());
             System.out.println("Horarios: " + atividade.getHorario());
-            System.out.println("--------------------------");
+            System.out.println("-------------------------------");
+
+            if (chamadoPorFuncionario) {
+                atividade.listarAssociados();
+            }   
         }
     }
-}   
+}

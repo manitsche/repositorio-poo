@@ -14,6 +14,7 @@ public class Funcionario extends Pessoa {
     private String treinamentosConcluidos; 
     private String feedbacksRecebidos;
     private List<Atividade> listaAtividades;
+    private List<String> associadosEmAtividades = new ArrayList<>();
 
     public Funcionario(String nome, String endereco, String telefone, String email, String login, String senha, String cargo, String salario) {
         super(nome, endereco, telefone, email, login, senha);
@@ -281,7 +282,177 @@ public class Funcionario extends Pessoa {
             System.out.println("Atividade cadastrada com sucesso!");
         }
     }
+
+    public void cadastrarAssociadoEmAtividade(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
+        if (temPermissoesCompletas()) {
+            System.out.println("\n##### MODULO DE CADASTRO DE ASSOCIADOS EM ATIVIDADE #####");
+            System.out.println("Selecione a atividade onde deseja cadastrar o associado:");
+            for (Atividade atividade : listaAtividades) {
+                System.out.println(atividade.getIdatividade() + " - " + atividade.getNome());
+            }
+            System.out.print("Escolha o ID da atividade: ");
+            int idAtividade = scanner.nextInt();
+            scanner.nextLine();
+
+            // Encontre a atividade pelo ID
+            Atividade atividadeSelecionada = null;
+            for (Atividade atividade : listaAtividades) {
+                if (atividade.getIdatividade() == idAtividade) {
+                    atividadeSelecionada = atividade;
+                    break;
+                }
+            }
+
+            if (atividadeSelecionada != null) {
+                System.out.println("Selecione o associado que deseja cadastrar:");
+                for (Associado associado : listaAssociados) {
+                    System.out.println(associado.getIdassociado() + " - " + associado.getNome());
+                }
+                System.out.print("Escolha o ID do associado: ");
+                int idAssociado = scanner.nextInt();
+                scanner.nextLine();
+
+                // Encontre o associado pelo ID
+                Associado associadoSelecionado = null;
+                for (Associado associado : listaAssociados) {
+                    if (associado.getIdassociado() == idAssociado) {
+                        associadoSelecionado = associado;
+                        break;
+                    }
+                }
+
+                if (associadoSelecionado != null) {
+                    // Cadastre o associado na atividade
+                    atividadeSelecionada.cadastrarAssociado(associadoSelecionado);
+
+                    // Armazene o ID e nome do associado no vetor
+                    String infoAssociado = idAssociado + " - " + associadoSelecionado.getNome();
+                    associadosEmAtividades.add(infoAssociado);
+
+                    System.out.println("Associado cadastrado na atividade com sucesso!");
+                } else {
+                    System.out.println("Associado não encontrado.");
+                }
+            } else {
+                System.out.println("Atividade não encontrada.");
+            }
+        } else {
+            System.out.println("Acesso não autorizado.");
+        }
+    }
+
+    // Método para listar os associados em atividades
+    public void listarAssociadosEmAtividades() {
+        System.out.println("\n##### ASSOCIADOS EM ATIVIDADE #####");
+        for (String infoAssociado : associadosEmAtividades) {
+            System.out.println(infoAssociado);
+        }
+    }
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void menuFuncionario(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
         boolean sair = false;
     
@@ -293,7 +464,8 @@ public class Funcionario extends Pessoa {
             System.out.println("4 - Criar resumo pessoal");
             System.out.println("5 - Cadastrar nova atividade");
             System.out.println("6 - Visualizar atividades cadastradas");
-            System.out.println("7 - Voltar ao menu anterior");
+            System.out.println("7 - Cadastrar associado em atividade");
+            System.out.println("8 - Voltar ao menu anterior");
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -328,12 +500,19 @@ public class Funcionario extends Pessoa {
                     break;
                 case 6:
                     if (temPermissoesCompletas()) {
-                        Atividade.visualizarAtividadesCadastradas(listaAtividades);
+                        Atividade.visualizarAtividadesCadastradas(listaAtividades, true);
                     } else {
                         System.out.println("Acesso nao autorizado para visualizar atividades cadastradas");
                     }
                     break;
-                case 7:
+                case 7: 
+                    if (temPermissoesCompletas()) {
+                        cadastrarAssociadoEmAtividade(listaAssociados, listaAtividades, scanner);
+                    } else {
+                        System.out.println("Acesso nao autorizado para cadastrar associados em atividades");
+                    }
+                    break;
+                case 8:
                     sair = true;
                     break;
                 default:

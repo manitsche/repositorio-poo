@@ -13,6 +13,14 @@ public class Main {
 
         Associado associado1 = new Associado("Associado 1",  "Rua A, 1", "(45) 99999-1111", "associado1@clube.com", "a1", "a1", 1, "a" );
         listaAssociados.add(associado1);
+        Associado associado2 = new Associado("Associado 2",  "Rua A, 1", "(45) 99999-1111", "associado1@clube.com", "a2", "a2", 1, "a" );
+        listaAssociados.add(associado2);
+        Associado associado3 = new Associado("Associado 3",  "Rua A, 1", "(45) 99999-1111", "associado1@clube.com", "a3", "a3", 1, "a" );
+        listaAssociados.add(associado3);
+        Associado associado4 = new Associado("Associado 4",  "Rua A, 1", "(45) 99999-1111", "associado1@clube.com", "a4", "a4", 1, "a" );
+        listaAssociados.add(associado4);
+        Associado associado5 = new Associado("Associado 5",  "Rua A, 1", "(45) 99999-1111", "associado1@clube.com", "a5", "a5", 1, "a" );
+        listaAssociados.add(associado5);
 
         Funcionario funcionario1 = new Funcionario("Funcionario 1", "Rua B, 2", "(45) 99999-2222", "funcionario1@clube.com", "f1", "f1", "Cadastro", " R$ 1.200,00");
         funcionario1.setPermissoesCompletas(true);
