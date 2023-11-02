@@ -11,8 +11,9 @@ public class Atividade {
     private List<String> turmas;
     private String horario;
     private String instrutores;
-    private List<Associado> associados; // Lista de associados cadastrados na atividade
+    private List<Associado> associados; 
     List<Associado> associadosNaAtividade = new ArrayList<>();
+    private List<Associado> associadosInscritos = new ArrayList<>();
 
     public Atividade(String nome, String descricao, String faixaEtaria, String niveisHabilidade, String turma, String horario, String instrutores) {
         this.idatividade = ++countAtividade;
@@ -24,7 +25,7 @@ public class Atividade {
         this.turmas.add(turma);
         this.horario = horario;
         this.instrutores = instrutores;
-        this.associados = new ArrayList<>(); // Inicializa a lista de associados
+        this.associados = new ArrayList<>();
     }
 
     public int getIdatividade() {
@@ -86,20 +87,16 @@ public class Atividade {
     public void cadastrarAssociado(Associado associado) {
         if (!associados.contains(associado)) {
             associados.add(associado);
-        //     System.out.println("Associado cadastrado na atividade.");
-        // } else {
-        //     System.out.println("O associado ja esta cadastrado nesta atividade.");
         }
     }
 
     public void listarAssociados() {
         System.out.println("\nAssociados cadastrados nesta atividade");
         for (Associado associado : associados) {
-            System.out.println("ID do associado:");
-
+            System.out.println("ID do associado: " + associado.getIdassociado());
             System.out.println("Nome: " + associado.getNome());
-        }
-        System.out.println("-------------------------------");
+            System.out.println("-------------------------------"); 
+        } 
     }
 
     public void cadastrarTurma(String novaTurma) {
@@ -108,7 +105,6 @@ public class Atividade {
     }
 
     public static void visualizarAtividadesCadastradas(List<Atividade> listaAtividades, boolean chamadoPorFuncionario) {
-        System.out.println("\n##### MODULO DE LISTAGEM DE ATIVIDADES #####");
         for (Atividade atividade : listaAtividades) {
             System.out.println("ID da atividade: " + atividade.getIdatividade());
             System.out.println("Nome: " + atividade.getNome());
@@ -124,4 +120,13 @@ public class Atividade {
             }   
         }
     }
+
+    public void inscreverAssociado(Associado associado) {
+        associadosInscritos.add(associado);
+    }
+
+    public boolean associadoEstaInscrito(Associado associado) {
+        return associadosInscritos.contains(associado);
+    }
+
 }

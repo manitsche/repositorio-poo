@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Funcionario extends Pessoa {
@@ -15,6 +17,8 @@ public class Funcionario extends Pessoa {
     private String feedbacksRecebidos;
     private List<Atividade> listaAtividades;
     private List<String> associadosEmAtividades = new ArrayList<>();
+    private Map<Associado, Map<Atividade, Integer>> faltasAssociado;
+    private Associado associado;
 
     public Funcionario(String nome, String endereco, String telefone, String email, String login, String senha, String cargo, String salario) {
         super(nome, endereco, telefone, email, login, senha);
@@ -26,6 +30,7 @@ public class Funcionario extends Pessoa {
         this.treinamentosConcluidos = "";
         this.feedbacksRecebidos = "";
         this.listaAtividades = new ArrayList<>();
+        faltasAssociado = new HashMap<>();
     }
 
     public int getIdfuncionario() {
@@ -282,19 +287,22 @@ public class Funcionario extends Pessoa {
             System.out.println("Atividade cadastrada com sucesso!");
         }
     }
-
+    
     public void cadastrarAssociadoEmAtividade(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
         if (temPermissoesCompletas()) {
             System.out.println("\n##### MODULO DE CADASTRO DE ASSOCIADOS EM ATIVIDADE #####");
-            System.out.println("Selecione a atividade onde deseja cadastrar o associado:");
+            System.out.println();
+            System.out.println("Selecione a atividade que deseja cadastrar o associado:");
+            System.out.println();
             for (Atividade atividade : listaAtividades) {
-                System.out.println(atividade.getIdatividade() + " - " + atividade.getNome());
+                System.out.println("ID da atividade: " + atividade.getIdatividade());
+                System.out.println("Nome: " + atividade.getNome());
+                System.out.println("--------------------------");
             }
             System.out.print("Escolha o ID da atividade: ");
             int idAtividade = scanner.nextInt();
             scanner.nextLine();
 
-            // Encontre a atividade pelo ID
             Atividade atividadeSelecionada = null;
             for (Atividade atividade : listaAtividades) {
                 if (atividade.getIdatividade() == idAtividade) {
@@ -304,15 +312,19 @@ public class Funcionario extends Pessoa {
             }
 
             if (atividadeSelecionada != null) {
+                System.out.println();
                 System.out.println("Selecione o associado que deseja cadastrar:");
+                System.out.println();
                 for (Associado associado : listaAssociados) {
-                    System.out.println(associado.getIdassociado() + " - " + associado.getNome());
+                    System.out.println("ID do associado: " + associado.getIdassociado());
+                    System.out.println("Nome: " + associado.getNome());
+                    System.out.println("--------------------------");
                 }
                 System.out.print("Escolha o ID do associado: ");
                 int idAssociado = scanner.nextInt();
                 scanner.nextLine();
+                System.out.println();
 
-                // Encontre o associado pelo ID
                 Associado associadoSelecionado = null;
                 for (Associado associado : listaAssociados) {
                     if (associado.getIdassociado() == idAssociado) {
@@ -322,14 +334,12 @@ public class Funcionario extends Pessoa {
                 }
 
                 if (associadoSelecionado != null) {
-                    // Cadastre o associado na atividade
-                    atividadeSelecionada.cadastrarAssociado(associadoSelecionado);
-
-                    // Armazene o ID e nome do associado no vetor
-                    String infoAssociado = idAssociado + " - " + associadoSelecionado.getNome();
-                    associadosEmAtividades.add(infoAssociado);
-
-                    System.out.println("Associado cadastrado na atividade com sucesso!");
+                    if (!atividadeSelecionada.associadoEstaInscrito(associadoSelecionado)) {
+                        atividadeSelecionada.inscreverAssociado(associadoSelecionado);
+                        System.out.println("Associado cadastrado na atividade com sucesso!");
+                    } else {
+                        System.out.println("Associado já está inscrito nesta atividade.");
+                    }
                 } else {
                     System.out.println("Associado não encontrado.");
                 }
@@ -340,118 +350,16 @@ public class Funcionario extends Pessoa {
             System.out.println("Acesso não autorizado.");
         }
     }
-
-    // Método para listar os associados em atividades
-    public void listarAssociadosEmAtividades() {
-        System.out.println("\n##### ASSOCIADOS EM ATIVIDADE #####");
-        for (String infoAssociado : associadosEmAtividades) {
-            System.out.println(infoAssociado);
+            
+    public void registrarFalta() {
+        if (associado != null) {
+            associado.incrementarFalta();
         }
     }
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void setAssociado(Associado associado) {
+        this.associado = associado;
+    }
 
     public void menuFuncionario(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
         boolean sair = false;
@@ -465,7 +373,8 @@ public class Funcionario extends Pessoa {
             System.out.println("5 - Cadastrar nova atividade");
             System.out.println("6 - Visualizar atividades cadastradas");
             System.out.println("7 - Cadastrar associado em atividade");
-            System.out.println("8 - Voltar ao menu anterior");
+            System.out.println("8 - Registrar falta de associado em atividade");
+            System.out.println("9 - Voltar ao menu anterior");
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -500,7 +409,8 @@ public class Funcionario extends Pessoa {
                     break;
                 case 6:
                     if (temPermissoesCompletas()) {
-                        Atividade.visualizarAtividadesCadastradas(listaAtividades, true);
+                        System.out.println("\n##### MODULO DE LISTAGEM DE ATIVIDADES #####");
+                        Atividade.visualizarAtividadesCadastradas(listaAtividades, false);
                     } else {
                         System.out.println("Acesso nao autorizado para visualizar atividades cadastradas");
                     }
@@ -513,6 +423,61 @@ public class Funcionario extends Pessoa {
                     }
                     break;
                 case 8:
+                    if (temPermissoesCompletas()) {
+                        System.out.println();
+                        System.out.println("Escolha o associado que deseja registrar falta:");
+                        System.out.println();
+                        for (Associado associado : listaAssociados) {
+                            System.out.println("ID do associado: " + associado.getIdassociado());
+                            System.out.println("Nome: " + associado.getNome());
+                            System.out.println("--------------------------");
+                        }
+                        System.out.print("Informe o ID do associado: ");
+                        int idAssociado = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println();
+                
+                        Associado associadoSelecionado = null;
+                        for (Associado associado : listaAssociados) {
+                            if (associado.getIdassociado() == idAssociado) {
+                                associadoSelecionado = associado;
+                                break;
+                            }
+                        }
+
+                        if (associadoSelecionado != null) {
+                            System.out.println("Escolha a atividade que deseja registrar falta:");
+                            System.out.println();
+                            Atividade.visualizarAtividadesCadastradas(listaAtividades, false);
+                            System.out.print("Escolha o ID da atividade: ");
+                            int idAtividade = scanner.nextInt();
+                            scanner.nextLine();
+                
+                            Atividade atividadeSelecionada = null;
+                            for (Atividade atividade : listaAtividades) {
+                                if (atividade.getIdatividade() == idAtividade) {
+                                    atividadeSelecionada = atividade;
+                                    break;
+                                }
+                            }
+                
+                            if (atividadeSelecionada != null) {
+                                if (atividadeSelecionada.associadoEstaInscrito(associadoSelecionado)) {
+                                    associadoSelecionado.registrarFalta(atividadeSelecionada);
+                                } else {
+                                    System.out.println("O associado nao esta inscrito nesta atividade. Nao e possivel registrar falta.");
+                                }
+                            } else {
+                                System.out.println("Atividade nao encontrada.");
+                            }
+                        } else {
+                            System.out.println("Associado nao encontrado.");
+                        }
+                    } else {
+                        System.out.println("Acesso nao autorizado para registrar falta de associado em atividade.");
+                    }
+                    break;
+                case 9:
                     sair = true;
                     break;
                 default:
