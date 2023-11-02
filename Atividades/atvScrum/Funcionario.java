@@ -13,14 +13,16 @@ public class Funcionario extends Pessoa {
     private boolean permissoesCompletas;
     private String resumo;
     private String historicoEmpregos;
-    private String treinamentosConcluidos; 
+    private String treinamentosConcluidos;
     private String feedbacksRecebidos;
     private List<Atividade> listaAtividades;
     private List<String> associadosEmAtividades = new ArrayList<>();
     private Map<Associado, Map<Atividade, Integer>> faltasAssociado;
     private Associado associado;
+    private List<String> registrosConsumoLanchonete = new ArrayList<>();
 
-    public Funcionario(String nome, String endereco, String telefone, String email, String login, String senha, String cargo, String salario) {
+    public Funcionario(String nome, String endereco, String telefone, String email, String login, String senha,
+            String cargo, String salario) {
         super(nome, endereco, telefone, email, login, senha);
         this.idfuncionario = ++countFuncionario;
         this.cargo = cargo;
@@ -95,7 +97,7 @@ public class Funcionario extends Pessoa {
             if (!listaAssociados.isEmpty()) {
                 nextId = listaAssociados.get(listaAssociados.size() - 1).getIdassociado() + 1;
             }
-    
+
             System.out.println("\n##### MODULO DE CADASTRO DE ASSOCIADOS #####");
             System.out.print("Nome do associado: ");
             String nome = scanner.nextLine();
@@ -114,12 +116,12 @@ public class Funcionario extends Pessoa {
             scanner.nextLine();
             System.out.print("Dados de pagamento: ");
             String dadosPagamento = scanner.nextLine();
-    
+
             Associado novoAssociado = new Associado(nome, endereco, telefone, email, login, senha, dependentes, dadosPagamento);
             listaAssociados.add(novoAssociado);
             System.out.println("Associado cadastrado com sucesso!");
         }
-    }    
+    }
 
     public void visualizarAssociados(List<Associado> listaAssociados) {
         System.out.println("\n##### MODULO DE LISTAGEM DE ASSOCIADOS #####");
@@ -176,7 +178,7 @@ public class Funcionario extends Pessoa {
                 System.out.println("7 - Numero de dependentes");
                 System.out.println("8 - Dados de pagamento");
                 System.out.println("9 - Voltar ao menu anterior");
-                
+
                 System.out.print("Escolha uma opcao: ");
                 int opcao = scanner.nextInt();
                 scanner.nextLine();
@@ -264,7 +266,7 @@ public class Funcionario extends Pessoa {
             } else {
                 nextId = 1;
             }
-    
+
             System.out.println("\n##### MODULO DE CADASTRO DE ATIVIDADE #####");
             System.out.print("Nome da atividade: ");
             String nome = scanner.nextLine();
@@ -280,14 +282,15 @@ public class Funcionario extends Pessoa {
             String horario = scanner.nextLine();
             System.out.print("Instrutores: ");
             String instrutores = scanner.nextLine();
-    
-            Atividade novaAtividade = new Atividade(nome, descricao, faixaEtaria, niveisHabilidade, turmas, horario, instrutores);
+
+            Atividade novaAtividade = new Atividade(nome, descricao, faixaEtaria, niveisHabilidade, turmas, horario,
+                    instrutores);
             listaAtividades.add(novaAtividade);
-    
+
             System.out.println("Atividade cadastrada com sucesso!");
         }
     }
-    
+
     public void cadastrarAssociadoEmAtividade(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
         if (temPermissoesCompletas()) {
             System.out.println("\n##### MODULO DE CADASTRO DE ASSOCIADOS EM ATIVIDADE #####");
@@ -350,7 +353,7 @@ public class Funcionario extends Pessoa {
             System.out.println("Acesso não autorizado.");
         }
     }
-            
+
     public void registrarFalta() {
         if (associado != null) {
             associado.incrementarFalta();
@@ -361,9 +364,57 @@ public class Funcionario extends Pessoa {
         this.associado = associado;
     }
 
+    public void registrarConsumoNaLanchonete(List<Associado> listaAssociados, Scanner scanner) {
+        if ("Lanchonete".equals(cargo)) {
+            System.out.println("\n##### REGISTRO DE CONSUMO NA LANCHONETE #####");
+            System.out.println("Selecione o associado que consumiu:");
+            for (Associado associado : listaAssociados) {
+                System.out.println("ID do associado: " + associado.getIdassociado());
+                System.out.println("Nome: " + associado.getNome());
+                System.out.println("--------------------------");
+            }
+            System.out.print("Escolha o ID do associado: ");
+            int idAssociado = scanner.nextInt();
+            scanner.nextLine();
+
+            Associado associadoSelecionado = null;
+            for (Associado associado : listaAssociados) {
+                if (associado.getIdassociado() == idAssociado) {
+                    associadoSelecionado = associado;
+                    break;
+                }
+            }
+
+            if (associadoSelecionado != null) {
+                System.out.print("Informe a data do consumo: ");
+                String dataConsumo = scanner.nextLine();
+                System.out.print("O que foi consumido: ");
+                String descricaoConsumo = scanner.nextLine();
+
+                String registro = "ID do associado: " + idAssociado + "\n" + "Nome: " + associadoSelecionado.getNome() + "\n" + "Data: " + dataConsumo + "\n" +  "Consumo: " + descricaoConsumo;
+
+                registrosConsumoLanchonete.add(registro);
+
+                System.out.println("Registro de consumo na lanchonete realizado com sucesso!");
+            } else {
+                System.out.println("Associado não encontrado.");
+            }
+        } else {
+            System.out.println("Acesso não autorizado para registrar consumo na lanchonete.");
+        }
+    }
+
+    public void visualizarRegistrosConsumoLanchonete() {
+        System.out.println("\n##### REGISTROS DE CONSUMO NA LANCHONETE #####");
+        for (String registro : registrosConsumoLanchonete) {
+            System.out.println(registro);
+            System.out.println("--------------------------");
+        }
+    }
+
     public void menuFuncionario(List<Associado> listaAssociados, List<Atividade> listaAtividades, Scanner scanner) {
         boolean sair = false;
-    
+
         while (!sair) {
             System.out.println("\n##### MENU INICIAL - FUNCIONARIO #####");
             System.out.println("1 - Cadastrar novo associado");
@@ -378,7 +429,7 @@ public class Funcionario extends Pessoa {
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
-            
+
             switch (opcao) {
                 case 1:
                     if (temPermissoesCompletas()) {
@@ -405,7 +456,7 @@ public class Funcionario extends Pessoa {
                         cadastrarAtividade(listaAtividades, scanner);
                     } else {
                         System.out.println("Acesso nao autorizado para cadastrar atividades");
-                    } 
+                    }
                     break;
                 case 6:
                     if (temPermissoesCompletas()) {
@@ -415,7 +466,7 @@ public class Funcionario extends Pessoa {
                         System.out.println("Acesso nao autorizado para visualizar atividades cadastradas");
                     }
                     break;
-                case 7: 
+                case 7:
                     if (temPermissoesCompletas()) {
                         cadastrarAssociadoEmAtividade(listaAssociados, listaAtividades, scanner);
                     } else {
@@ -436,7 +487,7 @@ public class Funcionario extends Pessoa {
                         int idAssociado = scanner.nextInt();
                         scanner.nextLine();
                         System.out.println();
-                
+
                         Associado associadoSelecionado = null;
                         for (Associado associado : listaAssociados) {
                             if (associado.getIdassociado() == idAssociado) {
@@ -452,7 +503,7 @@ public class Funcionario extends Pessoa {
                             System.out.print("Escolha o ID da atividade: ");
                             int idAtividade = scanner.nextInt();
                             scanner.nextLine();
-                
+
                             Atividade atividadeSelecionada = null;
                             for (Atividade atividade : listaAtividades) {
                                 if (atividade.getIdatividade() == idAtividade) {
@@ -460,7 +511,7 @@ public class Funcionario extends Pessoa {
                                     break;
                                 }
                             }
-                
+
                             if (atividadeSelecionada != null) {
                                 if (atividadeSelecionada.associadoEstaInscrito(associadoSelecionado)) {
                                     associadoSelecionado.registrarFalta(atividadeSelecionada);
@@ -478,6 +529,34 @@ public class Funcionario extends Pessoa {
                     }
                     break;
                 case 9:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opcao invalida. Escolha novamente.");
+            }
+        }
+    }
+
+    public void menuFuncionarioLanchonete(List<Associado> listaAssociados, Scanner scanner) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("\n##### MENU DE FUNCIONARIO DA LANCHONETE #####");
+            System.out.println("1 - Registrar consumo na lanchonete");
+            System.out.println("2 - Visualizar registros de consumo na lanchonete");
+            System.out.println("3 - Voltar ao menu anterior");
+            System.out.print("Escolha uma opcao: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    registrarConsumoNaLanchonete(listaAssociados, scanner);
+                    break;
+                case 2:
+                    visualizarRegistrosConsumoLanchonete();
+                    break;
+                case 3:
                     sair = true;
                     break;
                 default:

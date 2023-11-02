@@ -25,6 +25,9 @@ public class Main {
         Funcionario funcionario1 = new Funcionario("Funcionario 1", "Rua B, 2", "(45) 99999-2222", "funcionario1@clube.com", "f1", "f1", "Cadastro", " R$ 1.200,00");
         funcionario1.setPermissoesCompletas(true);
         listaFuncionarios.add(funcionario1);
+        Funcionario funcionario2 = new Funcionario("Funcionario 2", "Rua B, 2", "(45) 99999-2222", "funcionario2@clube.com", "f2", "f2", "Lanchonete", " R$ 1.200,00");
+        funcionario2.setPermissoesCompletas(false);
+        listaFuncionarios.add(funcionario2);
 
         Gerente gerente1 = new Gerente("Gerente 1", "Rua C, 3", "(45) 99999-3333", "gerente1@clube.com", "g1", "g1", "R$ 2.400,00");
         listaGerentes.add(gerente1);
@@ -52,7 +55,7 @@ public class Main {
                     Associado associadoAutenticado = null;
 
                     for (Associado associado : listaAssociados) {
-                        if (associado.getLogin().equals(loginAssociado)&& associado.getSenha().equals(senhaAssociado)) {
+                        if (associado.getLogin().equals(loginAssociado) && associado.getSenha().equals(senhaAssociado)) {
                             associadoAutenticado = associado;
                             break;
                         }
@@ -80,7 +83,11 @@ public class Main {
                     }
 
                     if (funcionarioAutenticado != null) {
-                        funcionarioAutenticado.menuFuncionario(listaAssociados, listaAtividades, scanner);
+                        if ("Lanchonete".equals(funcionarioAutenticado.getCargo())) {
+                            funcionarioAutenticado.menuFuncionarioLanchonete(listaAssociados, scanner);
+                        } else {
+                            funcionarioAutenticado.menuFuncionario(listaAssociados, listaAtividades, scanner);
+                        }
                     } else {
                         System.out.println("Login ou senha do funcionario incorretos. Acesso negado.");
                     }
