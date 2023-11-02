@@ -425,7 +425,11 @@ public class Funcionario extends Pessoa {
             System.out.println("6 - Visualizar atividades cadastradas");
             System.out.println("7 - Cadastrar associado em atividade");
             System.out.println("8 - Registrar falta de associado em atividade");
-            System.out.println("9 - Voltar ao menu anterior");
+            System.out.println("9 - Configurar notificacoes");
+            System.out.println("10 - Voltar ao menu anterior");
+            System.out.println();
+            Notificacao.visualizarNotificacoes(2, false);
+            System.out.println();
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -475,9 +479,7 @@ public class Funcionario extends Pessoa {
                     break;
                 case 8:
                     if (temPermissoesCompletas()) {
-                        System.out.println();
-                        System.out.println("Escolha o associado que deseja registrar falta:");
-                        System.out.println();
+                        System.out.println("\nEscolha o associado que deseja registrar falta:");
                         for (Associado associado : listaAssociados) {
                             System.out.println("ID do associado: " + associado.getIdassociado());
                             System.out.println("Nome: " + associado.getNome());
@@ -497,8 +499,7 @@ public class Funcionario extends Pessoa {
                         }
 
                         if (associadoSelecionado != null) {
-                            System.out.println("Escolha a atividade que deseja registrar falta:");
-                            System.out.println();
+                            System.out.println("Escolha a atividade que deseja registrar falta:\n");
                             Atividade.visualizarAtividadesCadastradas(listaAtividades, false);
                             System.out.print("Escolha o ID da atividade: ");
                             int idAtividade = scanner.nextInt();
@@ -529,6 +530,9 @@ public class Funcionario extends Pessoa {
                     }
                     break;
                 case 9:
+                    Notificacao.configurarNotificacoes(scanner);
+                    break;
+                case 10:
                     sair = true;
                     break;
                 default:
@@ -544,7 +548,11 @@ public class Funcionario extends Pessoa {
             System.out.println("\n##### MENU DE FUNCIONARIO DA LANCHONETE #####");
             System.out.println("1 - Registrar consumo na lanchonete");
             System.out.println("2 - Visualizar registros de consumo na lanchonete");
-            System.out.println("3 - Voltar ao menu anterior");
+            System.out.println("3 - Configurar notificacoes");
+            System.out.println("4 - Voltar ao menu anterior");
+            System.out.println();
+            Notificacao.visualizarNotificacoes(2, false);
+            System.out.println();
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -557,6 +565,9 @@ public class Funcionario extends Pessoa {
                     visualizarRegistrosConsumoLanchonete();
                     break;
                 case 3:
+                    Notificacao.configurarNotificacoes(scanner);
+                    break;
+                case 4:
                     sair = true;
                     break;
                 default:

@@ -94,6 +94,9 @@ public class Associado extends Pessoa {
             System.out.println("1 - Visualizar atividades cadastradas");
             System.out.println("2 - Visualizar numero de faltas");
             System.out.println("3 - Voltar ao menu anterior");
+            System.out.println();
+            Notificacao.visualizarNotificacoes(1, false);
+            System.out.println();
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();

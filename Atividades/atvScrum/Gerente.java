@@ -152,7 +152,11 @@ public class Gerente extends Pessoa {
             System.out.println("2 - Definir permissoes de acesso a um funcionario");
             System.out.println("3 - Visualizar resumos de funcionarios");
             System.out.println("4 - Cadastrar nova turma em atividade");
-            System.out.println("5 - Voltar ao menu anterior");
+            System.out.println("5 - Configurar notificacoes");
+            System.out.println("6 - Voltar ao menu anterior");
+            System.out.println();
+            Notificacao.visualizarNotificacoes(3, false);
+            System.out.println();
             System.out.print("Escolha uma opcao: ");
             int opcao = scanner.nextInt();
     
@@ -203,6 +207,9 @@ public class Gerente extends Pessoa {
                     cadastrarTurmaEmAtividade(listaAtividades, scanner);
                     break;
                 case 5:
+                    Notificacao.configurarNotificacoes(scanner);
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Opcao invalida. Escolha novamente.");

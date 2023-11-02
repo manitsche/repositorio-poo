@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Pessoa {
     private String nome;
     private String endereco;
@@ -5,6 +9,7 @@ public class Pessoa {
     private String email;
     private String login;
     private String senha;
+    private List<String> notificacoes;
     
     public Pessoa(String nome, String endereco, String telefone, String email, String login, String senha) {
         this.nome = nome;
@@ -13,6 +18,7 @@ public class Pessoa {
         this.email = email;
         this.login = login;
         this.senha = senha;
+        this.notificacoes = new ArrayList<>();
     }
 
     public String getNome() {
